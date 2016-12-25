@@ -93,6 +93,31 @@ class LinkedList:
 
 		return answer
 
+	def __iter__(self):
+		return LinkedListIterator(self.head)
+	
+
+
+class LinkedListIterator:
+
+	''' takes a head node reference '''
+
+	def __init__(self, head):
+		self.head = head	
+
+	def __iter__(self):
+		return self
+
+	def next(self):
+		if self.head is None:
+			raise StopIteration
+		else:
+			cursor = self.head
+			self.head = self.head.next
+			return cursor
+
+
+
 
 if __name__ == '__main__':
 
@@ -101,19 +126,13 @@ if __name__ == '__main__':
 	list.add('John')
 	list.add('Joe')
 	list.add('Jill')
+	list.add('Johnny')
 
-	print list
+	
+	for i in list:
+		print i.data
 
-	list.remove_last()
-	print list
-	list.remove_first()
-	print list
-	print list.get_tail()
-	print list.get_head()
-	list.remove_last()
-	print list.size()
-	print list.get_tail()
-	print list.get_head()
+
 
 
 
