@@ -37,15 +37,23 @@ class LinkedList:
 			self.head = new_node
 			self.items += 1
 
-	def remove_first(self):
+	# Is there a way we can make this remove method take care of remove last, or first
 
-		# remove first is O(1)
+	def remove(self, last=False):
+		# remove first is O(1), this will remove the first item from the list
+
 		if not self.is_empty():
-			self.head = self.head.next
-			self.items -= 1
+			if last:
+				self.remove_last()
+			else:
+				self.head = self.head.next
+				self.items -= 1
+
 
 	def remove_last(self):
-		
+
+		'''helper method to remove last node of linked list'''
+
 		cursor = self.head 
 
 		if self.size() >= 2 :
@@ -59,6 +67,18 @@ class LinkedList:
 			self.tail = None
 			self.head = None
 			self.items -= 1
+
+
+	def get(self, item):
+
+		if not self.is_empty():
+			cursor = self.head
+			while cursor is not None:
+				if cursor.data == item:
+					return item
+				cursor = cursor.next
+
+			return None
 
 
 	def is_empty(self):
@@ -128,6 +148,7 @@ if __name__ == '__main__':
 	list.add('Jill')
 	list.add('Johnny')
 
+	list.remove_last()
 	
 	for i in list:
 		print i.data
