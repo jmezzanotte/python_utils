@@ -2,7 +2,6 @@
 	Written-by : John Mezzanotte
 	LinkedList Implementation. Last piece is we need some sort of iteration
 '''
-
 class LinkedList:
 
 	# Nested node class 
@@ -117,6 +116,27 @@ class LinkedList:
 		return LinkedListIterator(self.head)
 	
 
+	@staticmethod
+	def reverse(list): 
+		
+		'''Static reverse method takes a head node as argument'''
+
+		current_node = list.head
+		next_node = None
+		prev_node = None
+
+		while(current_node is not None):
+			# set next node 
+			next_node = current_node.next
+			current_node.next = prev_node
+			prev_node = current_node
+			current_node = next_node
+
+		list.head = prev_node
+
+
+		
+
 
 class LinkedListIterator:
 
@@ -137,10 +157,7 @@ class LinkedListIterator:
 			return cursor
 
 
-
-
 if __name__ == '__main__':
-
 
 	list = LinkedList()
 	list.add('John')
@@ -148,10 +165,17 @@ if __name__ == '__main__':
 	list.add('Jill')
 	list.add('Johnny')
 
-	list.remove_last()
+	print list
+	LinkedList.reverse(list)
+	print list
+	LinkedList.reverse(list)
+	print list
 	
-	for i in list:
-		print i.data
+	
+	
+
+
+
 
 
 
