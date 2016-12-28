@@ -4,52 +4,61 @@
 '''
 class LinkedList:
 
-	# Nested node class 
 	class Node:
 
 		def __init__(self, data, next):
 			self.data = data
 			self.next = next
 
-
 		def __str__(self):
 			return 'data:{data}'.format(data=self.data)
-
 
 	def __init__(self):
 		self.head = None
 		self.tail = None
+		self.pre_tail = None
 		self.items = 0
 
+	def add(self, data, last=False):
 
-	def add(self, data):
-
-		# setup your new node
+		'''method to add a node in the front of the list'''
 		new_node = self.Node(data, None)
 
-		if self.is_empty() : 
-			self.head = new_node
-			self.tail = new_node
-			self.items += 1
+		if last:
+			self.__add_last(data)
 		else:
-			new_node.next = self.head
-			self.head = new_node
-			self.items += 1
-
-	# Is there a way we can make this remove method take care of remove last, or first
+			if self.is_empty() : 
+				self.head = new_node
+				self.tail = new_node
+				self.items += 1
+			else:
+				new_node.next = self.head
+				self.head = new_node
+				self.items += 1
 
 	def remove(self, last=False):
-		# remove first is O(1), this will remove the first item from the list
 
+		'''Remove not from front of list, if last remove node from'''
 		if not self.is_empty():
 			if last:
-				self.remove_last()
-			else:
+				self.__remove_last()
+			else: 
 				self.head = self.head.next
 				self.items -= 1
 
+	def __add_last(self, data):
 
-	def remove_last(self):
+		new_node = self.Node(data, None)
+		
+		if self.is_empty():
+			self.head = new_node
+			self.tail = new_node
+		else:
+			self.tail.next = new_node
+			self.tail = new_node
+
+
+	def __remove_last(self):
 
 		'''helper method to remove last node of linked list'''
 
@@ -135,9 +144,6 @@ class LinkedList:
 		list.head = prev_node
 
 
-		
-
-
 class LinkedListIterator:
 
 	''' takes a head node reference '''
@@ -164,12 +170,14 @@ if __name__ == '__main__':
 	list.add('Joe')
 	list.add('Jill')
 	list.add('Johnny')
+	list.add('The dude')
 
+	print list 
+	print list.size()
+	list.remove(last=True)
+	print list.size()
 	print list
-	LinkedList.reverse(list)
-	print list
-	LinkedList.reverse(list)
-	print list
+
 	
 	
 	
